@@ -37,6 +37,21 @@
 			}
 		}
 
+		public function loginUser($email, $password) {
+			$sql = "SELECT * FROM user_details WHERE Email = '".$email."' AND Password = '".$password."'";
+			$result = $this->connect_db()->query($sql);
+			$numRows = $result->num_rows;
+			if ($numRows == 1) {
+				$Data[] = $result->fetch_assoc();
+				return $Data;
+			}else{
+				return false;
+			}
+		}
+
+
+
+
 
 	}
 ?>

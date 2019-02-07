@@ -63,11 +63,11 @@
   }
 ?>
   <div class="starter-template">
-    <h1>Log Into Your Account</h1>
+    <h1>Your Profile Details</h1>
   </div>
 <div class="card">
   <div class="card-body">
-    <h4 class="card-title">Fill The Form Below</h4>
+    <h4 class="card-title">Below are the information you entered while registering</h4>
     <div class="row">
       <div class="col-md-6">
           <form action="includes/verify_user_details.php" method="POST">
