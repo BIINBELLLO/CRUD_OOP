@@ -1,5 +1,4 @@
 <?php
-  // include('includes/get_user_details.php');
   session_start();
 ?>
 <!DOCTYPE html>
