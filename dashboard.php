@@ -1,5 +1,10 @@
 <?php
   session_start();
+  include('includes/db_connection.php');
+  include('includes/user_class.php');
+  // $UserData = array();
+  $logged_in_user = new User;
+  $UserData = $logged_in_user->fetchUserDetails($_SESSION['user']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,6 +37,11 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+        </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><?=$_SESSION['user']?></a>
+      </li>
+
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -39,10 +49,7 @@
     </form>
     <ul class="navbar-nav navbar-right">
       <li class="nav-item">
-        <a class="nav-link" href="reg.php">Register</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="login.php">Log In</a>
+        <a class="nav-link" href="login.php">Log Out</a>
       </li>
     </ul>
   </div>
@@ -50,37 +57,24 @@
 
 <main role="main" class="container">
 <br><br><br><br>
-<?php
-  if (isset($_SESSION['Error'])) {
-    echo 
-    '
-      <div class="alert alert-danger alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Error!</strong> '.$_SESSION['Error'].'
-      </div>
-    ';
-    unset($_SESSION['Error']);
-  }
-?>
   <div class="starter-template">
     <h1>Your Profile Details</h1>
   </div>
 <div class="card">
   <div class="card-body">
-    <h4 class="card-title">Below are the information you entered while registering</h4>
     <div class="row">
       <div class="col-md-6">
-          <form action="includes/verify_user_details.php" method="POST">
-            <div class="form-group">
-              <label for="email">Email:</label>
-              <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required="">
-            </div>
-            <div class="form-group">
-              <label for="pwd">Password:</label>
-              <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd" required="">
-            </div>
-            <button type="submit" class="btn btn-primary" name="login">Log In</button>
-          </form>
+    <h4 class="card-title">Below are the information you entered while registering</h4>
+      <h4 style="color:purple;">Full Name: </h4>
+      <i><?=$UserData['Full_Name']?></i>
+      <h4 style="color:purple;">Registered Email: </h4>
+      <i><?=$UserData['Email']?></i>
+      <h4 style="color:purple;">Occupation: </h4>
+      <i><?=$UserData['Occupation']?></i>
+      </div>
+
+      <div class="col-md-6">
+
       </div>
       </div>
     </div>

@@ -9,12 +9,16 @@
 		$logged_in_user = new User;
 		$User_Data = $logged_in_user->loginUser($Email, $Password);
 
+		$Array = array();
+		$Array = $User_Data;
+
 		if ($User_Data == false) {
 			$_SESSION['Error'] = "Wrong Credentials, Access Denied!";
 			header("Location: ../login.php");
 		}else{
-			$_SESSION['user'] = $User_Data['Email'];
-			header("Location: ../dashboard.php");
+			// $_SESSION['user'] = $User_Data['Email'];
+			// header("Location: ../dashboard.php");
+			echo $Array[3];
 		}
 
 	}
