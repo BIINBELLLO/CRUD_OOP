@@ -1,3 +1,7 @@
+<?php
+  // include('includes/get_user_details.php');
+  session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,6 +51,28 @@
 
 <main role="main" class="container">
 <br><br><br><br>
+<?php
+  if (isset($_SESSION['Error'])) {
+    echo 
+    '
+      <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Error!</strong> '.$_SESSION['Error'].'
+      </div>
+    ';
+    unset($_SESSION['Error']);
+  }
+  if (isset($_SESSION['Success'])) {
+    echo 
+    '
+      <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Good!</strong> '.$_SESSION['Success'].'
+      </div>
+    ';
+    unset($_SESSION['Success']);
+  }
+?>
   <div class="starter-template">
     <h1>Create New Account</h1>
   </div>
@@ -55,28 +81,28 @@
     <h4 class="card-title">Fill The Form Below</h4>
     <div class="row">
       <div class="col-md-6">
-          <form action="/action_page.php">
+          <form action="includes/get_user_details.php" method="POST">
             <div class="form-group">
               <label for="fullname">Full Name:</label>
-              <input type="text" class="form-control" id="fullname" placeholder="Enter Full Name" name="fullname">
+              <input type="text" class="form-control" id="fullname" placeholder="Enter Full Name" name="fullname" required="">
             </div>
             <div class="form-group">
               <label for="occup">Occupation:</label>
-              <input type="text" class="form-control" id="occup" placeholder="Enter Your Occupation" name="occup">
+              <input type="text" class="form-control" id="occup" placeholder="Enter Your Occupation" name="occup" required="">
             </div>
             <div class="form-group">
               <label for="email">Email:</label>
-              <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+              <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required="">
             </div>
             <div class="form-group">
               <label for="pwd">Password:</label>
-              <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
+              <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd" required="">
             </div>
             <div class="form-group">
               <label for="pw_2">Confirm Password:</label>
-              <input type="password" class="form-control" id="pwd_2" placeholder="Enter password again" name="pswd_2">
+              <input type="password" class="form-control" id="pwd_2" placeholder="Enter password again" name="pswd_2" required="">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" name = "register">Submit</button>
           </form>
       </div>
       </div>
@@ -86,5 +112,8 @@
 
 </main><!-- /.container -->
 <script type="text/javascript" src = "assets/bootstrap/js/bootstrap.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 </body>
 </html>
