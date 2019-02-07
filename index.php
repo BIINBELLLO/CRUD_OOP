@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,6 +50,29 @@
 
 <main role="main" class="container">
 <br><br><br><br>
+<?php
+  if (isset($_SESSION['Error'])) {
+    echo 
+    '
+      <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Error!</strong> '.$_SESSION['Error'].'
+      </div>
+    ';
+    unset($_SESSION['Error']);
+  }
+  if (isset($_SESSION['Success'])) {
+    echo 
+    '
+      <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Good!</strong> '.$_SESSION['Success'].'
+      </div>
+    ';
+    unset($_SESSION['Success']);
+  }
+?>
+
   <div class="starter-template">
     <h1>CRUD App Using PHP Object Oriented Programming</h1>
     <p class="lead">This is a simple CRUD application developed completely using OOP PHP and mysqli.</p>
@@ -69,7 +95,8 @@
 
 </main><!-- /.container -->
 <script type="text/javascript" src = "assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script>window.jQuery || document.write('<script src="/docs/4.2/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="/docs/4.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 </body>
 </html>
