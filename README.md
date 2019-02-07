@@ -7,4 +7,5 @@
 <ol>
 <li>Create a new database in your phpMyAdmin panel called 'crud_oop'</li>
 <li>Import the file inside the folder called db_script, the file name is 'crud_oop.sql'</li>
+<li>Edit the connection class, so the properties points to your server name, username and password, if you are using localhost, root and empty password like me, just leave it like that. The connection class is located in the includes folder and called 'db_connection'</li>
 </ol>
