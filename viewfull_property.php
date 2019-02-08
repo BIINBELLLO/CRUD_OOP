@@ -108,11 +108,12 @@
                       <input type="text" name="<?='name'.$data['id']?>" id = "<?='name'.$data['id']?>" value = "<?=$data['Name'];?>" style = "display: none;">
                   </td>
                   <td>
-                  <span  id = "<?='colorColumn'.$data['id']?>">  <?=$data['Color'];?> 
+                  <span  id = "<?='colorColumn'.$data['id']?>">  <?=$data['Color'];?> </span> 
                       <input type="text" name="<?='color'.$data['id']?>" id = "<?='color'.$data['id']?>" value = "<?=$data['Color'];?>" style = "display: none;">
                   </td>
                   <td>
-                    <?=$data['Price'];?>
+                  <span  id = "<?='priceColumn'.$data['id']?>">   <?=$data['Price'];?> </span> 
+                  <input type="text" name="<?='price'.$data['id']?>" id = "<?='price'.$data['id']?>" value = "<?=$data['Price'];?>" style = "display: none;">
                   </td>
                       
                     </form>
@@ -154,16 +155,24 @@
     function showEditInputs(id){
       // alert('You are Editing Item Number: '+ id);
       document.getElementById('name'+ id).style.display = "block";
+      document.getElementById('color'+ id).style.display = "block";
+      document.getElementById('price'+ id).style.display = "block";
       document.getElementById('update'+ id).style.display = "block";
       document.getElementById('nameColumn'+ id).style.display = "none";
+      document.getElementById('colorColumn'+ id).style.display = "none";
+      document.getElementById('priceColumn'+ id).style.display = "none";
       document.getElementById('edit_delete_btn'+ id).style.display = "none";
     }
 
     function showOriginalData(id){
       // alert('You are Editing Item Number: '+ id);
       document.getElementById('name'+ id).style.display = "none";
+      document.getElementById('color'+ id).style.display = "none";
+      document.getElementById('price'+ id).style.display = "none";
       document.getElementById('update'+ id).style.display = "none";
       document.getElementById('nameColumn'+ id).style.display = "block";
+      document.getElementById('colorColumn'+ id).style.display = "block";
+      document.getElementById('priceColumn'+ id).style.display = "block";
       document.getElementById('edit_delete_btn'+ id).style.display = "block";
     }
   </script>
