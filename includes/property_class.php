@@ -33,5 +33,17 @@
 			}
 		}
 
+		public function updateProduct($Owner, $id , $Name, $Color, $Price)
+		{
+			$sql = "UPDATE properties SET Name = '".$Name."', Color = '".$Color."', Price = '".$Price."' 
+			WHERE Owner = '".$Owner."' AND id = '".$id."'";
+			$result = $this->connect_db()->query($sql);
+			if ($result) {
+				return true;
+			}else{
+				return false;
+			}
+		}
+
 	}
 ?>
