@@ -2,6 +2,7 @@
   session_start();
   include('includes/db_connection.php');
   include('includes/user_class.php');
+  include('includes/property_class.php');
   // $UserData = array();
   $logged_in_user = new User;
   $UserData = $logged_in_user->fetchUserDetails($_SESSION['user']);
@@ -36,7 +37,7 @@
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="dashboard.php">Dashboard <span class="sr-only">(current)</span></a>
         </li>
       <li class="nav-item">
         <a class="nav-link" href="#"><?=$_SESSION['user']?></a>
@@ -74,7 +75,30 @@
       </div>
 
       <div class="col-md-6">
+      <h5>Your Properties! <a class="btn btn-outline-success" href="" style="float: right;">Add New Property</a></h5>
 
+            <ol>
+        <?php
+          $user_properties = new Property;
+          $userPropertiesFetched = $user_properties->fetchProducts($_SESSION['user']);
+          if ($userPropertiesFetched == false) {
+            # code...
+            echo '<h6><i>No Properties Added Yet!</i></p>';
+          }else{
+
+            ?>
+            <ol>
+            <?php
+          foreach ($userPropertiesFetched as $data) {
+            # code...
+            echo '<li>'.$data['Name'].'</li>';
+          }
+          ?>
+          </ol>
+          <a href="viewfull_property.php" class="btn btn-outline-info">View All Property Details</a>
+          <?php
+        }
+          ?>
       </div>
       </div>
     </div>
