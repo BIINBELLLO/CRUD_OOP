@@ -104,7 +104,7 @@
                   </td>
                   <td>
                   <span  id = "<?='nameColumn'.$data['id']?>"> <?=$data['Name'];?></span> 
-                    <form>
+                    <form id="<?='editForm'.$data['id']?>" action = "includes/updateProperty.php" method = "post">
                       <input type="text" name="<?='name'.$data['id']?>" id = "<?='name'.$data['id']?>" value = "<?=$data['Name'];?>" style = "display: none;">
                   </td>
                   <td>
@@ -174,6 +174,26 @@
       document.getElementById('colorColumn'+ id).style.display = "block";
       document.getElementById('priceColumn'+ id).style.display = "block";
       document.getElementById('edit_delete_btn'+ id).style.display = "block";
+    }
+  </script>
+
+  <script type="text/javascript">
+    function updateData(id) 
+    {
+      $("#update"+id).click(
+          function(){
+            var data = $("#editForm"+id + " : input").serializeArray();
+
+            $.post($("#editForm"+id).attr("action"), data, function(info){
+              $("#result").html(info);
+            });
+          }
+        );
+
+      $("#editForm"+id).submit( 
+        function(){
+          return false;
+      });
     }
   </script>
 </body>
