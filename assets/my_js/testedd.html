@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+ <html>
+ <head>
+ 	<title>Testing Pdf</title>
+ 	<meta charset="utf-8" content="text/html" http-equiv="Content-Type">
+ 	<script type="text/javascript" src="my_js/jquery.min.js"></script>
+ 	<script type="text/javascript" src="my_js/html2canvas.min.js"></script> 	
+ 	<script type="text/javascript" src="my_js/jspdf.min.js"></script>
+ 	<script type="text/javascript">
+ 		function genPDF(){
+ 			html2canvas(document.body, {
+ 				onrendered: function (canvas) {
+ 					var img = canvas.toDataURL("image/png");
+ 					var doc = new jsPDF();
+ 					doc.addImage(img, 'JPEG', 20, 20);
+ 					setTimeout(function(){
+						doc.save('tests.pdf');
+ 					}, 3000);
+ 					
+ 				}
+ 			});
+ 		}
+ 		function genPDFs(){
+ 			html2canvas(document.getElementById('getx'), {
+ 				onrendered: function (canvas) {
+ 					var img = canvas.toDataURL("image/png");
+ 					var doc = new jsPDF();
+ 					doc.addImage(img, 'JPEG', 10, 10,180,115);
+ 					doc.save('tested');
+ 				}
+ 			});
+ 		}
+ 		function printC (el){
+ 			var restore = document.body.innerHTML;
+ 			var spec = document.getElementById(el).innerHTML;
+ 			document.body.innerHTML = spec;
+ 			window.print();
+ 			document.body.innerHTML = restore;
+ 		}
+ 	</script>
+
+ </head>
+ <body >
+ 	<div id="getx" class="img1" style="width: 300px;">
+ 		<img style="width: 175px; height: 175px;" src="img/1.png">
+ 	</div>
+ 	<div id="getr" style="width: 300px;">
+ 		<h3>A new method!</h3>
+ 		<img style="width: 175px; height: 175px;" class="img2" src="img/1.png">
+ 	</div>
+ 	<div class="btn">
+ 	<a onclick="printC('getr')"><button>Download PDF</button></a>
+ 	</div>
+ </body>
+ </html>

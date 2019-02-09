@@ -65,8 +65,31 @@
   <div class="card-body">
     <div class="row">
       <div class="col-md-12">
+      <?php
+        if (isset($_SESSION['Error'])) {
+          echo 
+          '
+            <div class="alert alert-danger alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>Error!</strong> '.$_SESSION['Error'].'
+            </div>
+          ';
+          unset($_SESSION['Error']);
+        }
+        if (isset($_SESSION['Success'])) {
+          echo 
+          '
+            <div class="alert alert-success alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>Good!</strong> '.$_SESSION['Success'].'
+            </div>
+          ';
+          unset($_SESSION['Success']);
+        }
+      ?>
         <table class="table table-dark table-striped">
           <thead>
+          <span id="result"></span>
             <tr>
               <th>S/No</th>
               <th>Property Name</th>
@@ -104,26 +127,29 @@
                   </td>
                   <td>
                   <span  id = "<?='nameColumn'.$data['id']?>"> <?=$data['Name'];?></span> 
-                    <form id="<?='editForm'.$data['id']?>" action = "includes/updateProperty.php" method = "post">
-                      <input type="text" name="<?='name'.$data['id']?>" id = "<?='name'.$data['id']?>" value = "<?=$data['Name'];?>" style = "display: none;">
+                    <form id="<?='editForm'.$data['id']?>" action = "includes/updateProperty.php" method = "POST">
+                      <input type="hidden" id = "dataID" name="id" value="<?=$data['id'];?>">
+                      <input type="hidden" id = "<?='dataColor'.$data['id']?>" name="color" >
+                      <input type="hidden" id = "<?='dataPrice'.$data['id']?>" name="price" >
+                      <input type="text" name="name" id = "<?='name'.$data['id']?>" value = "<?=$data['Name'];?>" style = "display: none;">
                   </td>
                   <td>
                   <span  id = "<?='colorColumn'.$data['id']?>">  <?=$data['Color'];?> </span> 
-                      <input type="text" name="<?='color'.$data['id']?>" id = "<?='color'.$data['id']?>" value = "<?=$data['Color'];?>" style = "display: none;">
+                      <input type="text" name="color" id = "<?='color'.$data['id']?>" value = "<?=$data['Color'];?>" style = "display: none;">
                   </td>
                   <td>
                   <span  id = "<?='priceColumn'.$data['id']?>">   <?=$data['Price'];?> </span> 
-                  <input type="text" name="<?='price'.$data['id']?>" id = "<?='price'.$data['id']?>" value = "<?=$data['Price'];?>" style = "display: none;">
+                  <input type="text" name="price" id = "<?='price'.$data['id']?>" value = "<?=$data['Price'];?>" style = "display: none;">
                   </td>
-                      
-                    </form>
                   <td>
                     <?=$data['Date'];?>
                   </td>
                   <td>
                     <div>
                       <button class="btn btn-outline-success" id = "<?='update'.$data['id']?>" style = "display: none;"
-                      onclick = "showOriginalData(<?=$data['id']?>)">Save</button>
+                      >Save</button>
+                      
+                    </form>
                     <!-- <form action="" method="POST"> -->
                       <!-- <input type="hidden" name="property_id"> -->
                       <div id="<?='edit_delete_btn'.$data['id']?>">
@@ -148,6 +174,7 @@
 
 </main><!-- /.container -->
 <script type="text/javascript" src = "assets/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src = "assets/my_js/jquery.min.js"></script>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
@@ -163,6 +190,11 @@
       document.getElementById('priceColumn'+ id).style.display = "none";
       document.getElementById('edit_delete_btn'+ id).style.display = "none";
     }
+    function showNewData(id){
+    document.getElementById('nameColumn'+id).innerHTML = document.getElementById('name'+id).value;
+    document.getElementById('colorColumn'+id).innerHTML = document.getElementById('dataColor'+id).value;
+    document.getElementById('priceColumn'+id).innerHTML = document.getElementById('dataPrice'+id).value;
+  }
 
     function showOriginalData(id){
       // alert('You are Editing Item Number: '+ id);
@@ -174,27 +206,39 @@
       document.getElementById('colorColumn'+ id).style.display = "block";
       document.getElementById('priceColumn'+ id).style.display = "block";
       document.getElementById('edit_delete_btn'+ id).style.display = "block";
+      showNewData(id);
     }
   </script>
 
-  <script type="text/javascript">
-    function updateData(id) 
-    {
-      $("#update"+id).click(
-          function(){
-            var data = $("#editForm"+id + " : input").serializeArray();
+<!-- Working Ajax Script -->
 
-            $.post($("#editForm"+id).attr("action"), data, function(info){
-              $("#result").html(info);
-            });
-          }
-        );
+<script type="text/javascript">
+var id = document.getElementById('dataID').value;
+$("#update"+id).click( function() {
+var color = document.getElementById('color'+id).value;
+var price = document.getElementById('price'+id).value;
+document.getElementById('dataColor'+id).value = color;
+document.getElementById('dataPrice'+id).value = price;
+ $.post( $("#editForm"+id).attr("action"), 
+         $("#editForm"+id+" :input").serializeArray(), 
+         function(info){ $("#result").html(info); 
+   });
+ showOriginalData(id);
+});
+ 
+$("#editForm"+id).submit( function() {
+  return false; 
+});
+ 
+function clearInput() {
+  $("#editForm"+id+" :input").each( function() {
+     $(this).val('');
+  });
+}
 
-      $("#editForm"+id).submit( 
-        function(){
-          return false;
-      });
-    }
-  </script>
+
+</script>
+
+<!-- Working Ajax Script Ends Here -->
 </body>
 </html>
