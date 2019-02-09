@@ -119,7 +119,8 @@
               $user_properties = new Property;
               $userPropertiesFetched = $user_properties->fetchProducts($_SESSION['user']);
               foreach ($userPropertiesFetched as $data) 
-              {?>
+              { 
+                ?>
                 <!-- // echo '<li>'.$data['Name'].'</li>'; -->
                 <tr>
                   <td>
@@ -223,7 +224,7 @@ document.getElementById('dataPrice'+id).value = price;
          $("#editForm"+id+" :input").serializeArray(), 
          function(info){ $("#result").html(info); 
    });
- showOriginalData(id);
+showOriginalData(id);
 });
  
 $("#editForm"+id).submit( function() {
