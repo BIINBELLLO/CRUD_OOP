@@ -149,7 +149,7 @@
                   </td>
                   <td>
                     <div>
-                      <button class="btn btn-outline-success" id = "<?='update'.$data['id']?>" style = "display: none;"
+                      <button class="btn btn-outline-success" id = "<?='update'.$data['id']?>" style = "display: none;" onclick= "saveNewData(<?=$data['id'];?>)"
                       >Save</button>
                       
                     </form>
@@ -158,7 +158,8 @@
                       <div id="<?='edit_delete_btn'.$data['id']?>">
                       <button class="btn btn-outline-warning" id="<?='edit'.$data['id']?>" 
                           onclick = "showEditInputs(<?=$data['id']?>)">Edit</button>
-                      <button class="btn btn-outline-danger" id="<?='delete'.$data['id']?>">Delete</button>
+                      <input type="hidden" id="hidden_ID" name="id" value="<?=$data['id'];?>">
+                      <button name="delete" class="btn btn-outline-danger" id="<?='delete'.$data['id']?>" data-toggle="modal" data-target="#myModal" onclick = "getID(<?=$data['id'];?>)">Delete</button>
                     <!-- </form> -->
                       </div>
                     </div>
@@ -175,6 +176,35 @@
     </div>
   </div>
 </div>
+
+
+<!-- Modal For Deleting Items -->
+
+ <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Delete Property?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete this property called '<span id="prop"></span>'? <br>Note! This Cannot Be undone!</p>
+          <form>
+            <input type="text" name="id" id="modal_ID">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+<!--/ Modal For Deleting Items -->  
 
 </main><!-- /.container -->
 <script type="text/javascript" src = "assets/bootstrap/js/bootstrap.min.js"></script>
@@ -212,13 +242,18 @@
       document.getElementById('edit_delete_btn'+ id).style.display = "block";
       showNewData(id);
     }
+    function getID(id){
+      document.getElementById('prop').innerHTML = id;
+      document.getElementById('modal_ID').value = id;
+    }
   </script>
 
 <!-- Working Ajax Script -->
 
 <script type="text/javascript">
 // var total = document.getElementById('total').innerHTML;
-  var id = document.getElementById('dataID').value;
+ function saveNewData(id){
+    // var id = document.getElementById('dataID').value;
 $("#update"+id).click( function() {
 var color = document.getElementById('color'+id).value;
 var price = document.getElementById('price'+id).value;
@@ -230,6 +265,10 @@ document.getElementById('dataPrice'+id).value = price;
    });
 showOriginalData(id);
 });
+$("#editForm"+id).submit( function() {
+  return false; 
+});
+ }
 // var id = document.getElementById('dataID').value;
 // $("#update"+id).click( function() {
 // var color = document.getElementById('color'+id).value;
@@ -243,9 +282,7 @@ showOriginalData(id);
 // showOriginalData(id);
 // });
  
-$("#editForm"+id).submit( function() {
-  return false; 
-});
+
  
 function clearInput() {
   $("#editForm"+id+" :input").each( function() {
