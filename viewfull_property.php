@@ -192,16 +192,14 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-        <?php
-
-        ?>
           <p>Are you sure you want to delete this property called '<span id="prop"></span>'? <br>Note! This Cannot Be undone!</p>
-          <form>
-            <input type="text" name="id" id="modal_ID">
+          <form action="includes/deleteProperty.php" method="POST">
+            <input type="hidden" name="id" id="modal_ID">
+            <button class="btn btn-outline-danger" type="submit" name = "yesDelete">Yes, Delete it!</button>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-outline-success" data-dismiss="modal">No! Cancel</button>
         </div>
       </div>
       
