@@ -45,5 +45,16 @@
 			}
 		}
 
+		public function addNewProperty($Owner, $Name, $Color, $Price, $Date ) {
+			$sql = "INSERT INTO properties (Name, Color, Price, Date, Owner)
+			VALUES ('$Name','$Color', '$Price', '$Date', '$Owner')";
+			$result = $this->connect_db()->query($sql);
+			if ($result) {
+				return true;
+			}else{
+				return false;
+			}
+		}
+
 	}
 ?>
