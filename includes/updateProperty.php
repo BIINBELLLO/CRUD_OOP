@@ -24,11 +24,11 @@
 	$result = $edited_Property->updateProduct($_SESSION['user'], $ID, $Name, $Color, $Price);
 	if ($result == true) {
 		# code...
-		echo "Property ".$ID." Updated!!";
+		echo "Property Updated!!";
 		// $_SESSION['success'] = "Property ".$Name." Updated!!";
 		// header("Location: ../viewfull_property.php");
 	}else{
-		echo "Property ".$ID." Update Failed!!";
+		echo "Property Update Failed!!";
 		// $_SESSION['Error'] = "Property ".$Name." Update Failed!!";
 		// header("Location: ../viewfull_property.php");
 	}
