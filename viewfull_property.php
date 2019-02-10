@@ -126,7 +126,7 @@
                 <!-- // echo '<li>'.$data['Name'].'</li>'; -->
                 <tr>
                   <td>
-                    <?=$data['id'];?>
+                    <?=$total;?>
                   </td>
                   <td>
                   <span  id = "<?='nameColumn'.$data['id']?>"> <?=$data['Name'];?></span> 
