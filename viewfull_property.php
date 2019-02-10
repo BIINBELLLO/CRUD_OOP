@@ -116,10 +116,12 @@
               <td>july@example.com</td>
             </tr> -->
             <?php
+              $total = 0;
               $user_properties = new Property;
               $userPropertiesFetched = $user_properties->fetchProducts($_SESSION['user']);
               foreach ($userPropertiesFetched as $data) 
               { 
+                $total++;
                 ?>
                 <!-- // echo '<li>'.$data['Name'].'</li>'; -->
                 <tr>
@@ -165,6 +167,7 @@
               <?php
               }
             ?>
+            <p id = "total" style="display: none;"><?=$total?></p>
           </tbody>
         </table>
       </div>
@@ -214,7 +217,8 @@
 <!-- Working Ajax Script -->
 
 <script type="text/javascript">
-var id = document.getElementById('dataID').value;
+// var total = document.getElementById('total').innerHTML;
+  var id = document.getElementById('dataID').value;
 $("#update"+id).click( function() {
 var color = document.getElementById('color'+id).value;
 var price = document.getElementById('price'+id).value;
@@ -226,6 +230,18 @@ document.getElementById('dataPrice'+id).value = price;
    });
 showOriginalData(id);
 });
+// var id = document.getElementById('dataID').value;
+// $("#update"+id).click( function() {
+// var color = document.getElementById('color'+id).value;
+// var price = document.getElementById('price'+id).value;
+// document.getElementById('dataColor'+id).value = color;
+// document.getElementById('dataPrice'+id).value = price;
+//  $.post( $("#editForm"+id).attr("action"), 
+//          $("#editForm"+id+" :input").serializeArray(), 
+//          function(info){ $("#result").html(info); 
+//    });
+// showOriginalData(id);
+// });
  
 $("#editForm"+id).submit( function() {
   return false; 
