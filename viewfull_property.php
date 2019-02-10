@@ -89,7 +89,7 @@
       ?>
         <table class="table table-dark table-striped">
           <thead>
-          <span id="result"></span>
+          <span id="result" style="color: green; font-weight: bolder; margin-bottom: 20px;"></span>
             <tr>
               <th>S/No</th>
               <th>Property Name</th>
@@ -159,7 +159,8 @@
                       <button class="btn btn-outline-warning" id="<?='edit'.$data['id']?>" 
                           onclick = "showEditInputs(<?=$data['id']?>)">Edit</button>
                       <input type="hidden" id="hidden_ID" name="id" value="<?=$data['id'];?>">
-                      <button name="delete" class="btn btn-outline-danger" id="<?='delete'.$data['id']?>" data-toggle="modal" data-target="#myModal" onclick = "getID(<?=$data['id'];?>)">Delete</button>
+                      <button name="delete" class="btn btn-outline-danger" id="<?='delete'.$data['id']?>" data-toggle="modal" data-target="#myModal" 
+                      onclick = "getID(<?php echo $data['id'];?>);">Delete</button>
                     <!-- </form> -->
                       </div>
                     </div>
@@ -191,6 +192,9 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
+        <?php
+
+        ?>
           <p>Are you sure you want to delete this property called '<span id="prop"></span>'? <br>Note! This Cannot Be undone!</p>
           <form>
             <input type="text" name="id" id="modal_ID">
@@ -243,8 +247,11 @@
       showNewData(id);
     }
     function getID(id){
-      document.getElementById('prop').innerHTML = id;
       document.getElementById('modal_ID').value = id;
+      document.getElementById('prop').innerHTML = document.getElementById('name'+id).value;
+    }
+    function getNAME(names){
+      document.getElementById('prop').innerHTML = names;
     }
   </script>
 
