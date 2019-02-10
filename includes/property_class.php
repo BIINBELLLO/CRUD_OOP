@@ -56,5 +56,15 @@
 			}
 		}
 
+		public function deleteProperty($Owner, $ID ) {
+			$sql = "DELETE FROM properties WHERE Owner = '".$Owner."' AND id = '".$ID."'";
+			$result = $this->connect_db()->query($sql);
+			if ($result) {
+				return true;
+			}else{
+				return false;
+			}
+		}
+
 	}
 ?>
